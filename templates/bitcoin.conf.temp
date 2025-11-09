@@ -1,0 +1,58 @@
+package main
+
+import (
+	"os"
+	"text/template"
+)
+
+type Backend struct {
+	Mainnet          bool
+	AdditionalParams map[string]interface{}
+}
+
+type IPC struct {
+	RPCUser                  string
+	RPCPass                  string
+	MessageQueueBindingTemplate string
+}
+
+type Ports struct {
+	BackendRPC int
+}
+
+type ConfigData struct {
+	Backend Backend
+	IPC     IPC
+	Ports   Ports
+}
+
+func main() {
+	data := ConfigData{
+		Backend: Backend{
+			Mainnet: true,
+			AdditionalParams: map[string]interface{}{
+				"addnode":       []string{"node1.bitcoin.example.com", "node2.bitcoin.example.com"},
+				"maxconnections": "50",
+				"rpcallowip":    "127.0.0.1",
+			},
+		},
+		IPC: IPC{
+			RPCUser: "admin",
+			RPCPass: "supersecure",
+			MessageQueueBindingTemplate: "tcp://127.0.0.1:28332",
+		},
+		Ports: Ports{
+			BackendRPC: 8332,
+		},
+	}
+
+	tmpl, err := template.ParseFiles("bitcoin.conf.tmpl")
+	if err != nil {
+		panic(err)
+	}
+
+	err = tmpl.ExecuteTemplate(os.Stdout, "main", data)
+	if err != nil {
+		panic(err)
+	}
+}
