@@ -1,0 +1,31 @@
+# Bitcoin Fusion generated config
+daemon=1
+server=1
+mainnet=1        # Using mainnet (change to testnet4=1 for testnet)
+nolisten=1
+txindex=1
+disablewallet=1
+
+# ZMQ for streaming transactions and blocks
+zmqpubhashtx=tcp://127.0.0.1:28332
+zmqpubhashblock=tcp://127.0.0.1:28332
+
+# RPC and mempool settings
+rpcworkqueue=1100
+maxmempool=4096
+mempoolexpiry=8760
+mempoolfullrbf=1
+
+dbcache=1000
+deprecatedrpc=warnings
+
+# Custom additional parameters
+addnode=node1.bitcoin.net
+addnode=node2.bitcoin.net
+maxconnections=40
+rpcallowip=127.0.0.1
+
+[main]
+rpcuser=fusionuser
+rpcpassword=fusionpass123
+rpcport=8332
