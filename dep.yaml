@@ -1,0 +1,14 @@
+version: '3.9'
+services:
+  bitcoin-node:
+    image: bitcoinfusion:latest
+    container_name: bitcoinfusion
+    volumes:
+      - ./bitcoin.conf:/root/.bitcoin/bitcoin.conf
+    ports:
+      - "8332:8332"
+      - "18332:18332"
+    environment:
+      - NETWORK=mainnet   # or testnet4
+      - RPC_USER=fusionuser_main
+      - RPC_PASS=fusionpass_main123
